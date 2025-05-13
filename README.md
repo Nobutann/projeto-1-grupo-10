@@ -24,7 +24,7 @@ O **SINALIZE** é um jogo de tabuleiro interativo desenvolvido para auxiliar no 
    - O LED **verde** pisca.
    - O motor vibratório é ativado brevemente.
 4. Se o par estiver incorreto:
-   - O LED **vermelho** pisca 5 vezes.
+   - O LED **vermelho** pisca.
    - O motor também vibra como alerta.
 
 ---
@@ -83,6 +83,7 @@ ParCartas paresValidos[] = {
 5. Abra o **Monitor Serial**. Aproximando uma tag do leitor, o UID será exibido no terminal.
 6. Anote os UIDs das suas tags para configurar os pares no seu projeto.
 
+---
 
 ## Objetivo Educacional
 
