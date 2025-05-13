@@ -73,6 +73,17 @@ ParCartas paresValidos[] = {
 ```
 ## Descobrindo os UIDs das suas tags RFID
 
+1. Abra a IDE do Arduino.
+2. Vá até **Arquivo > Exemplos > MFRC522 > ReadUID**.
+3. Conecte o leitor RFID ao Arduino conforme o esquema de pinos.
+4. Compile e envie o código:
+   - Conecte seu Arduino ao PC via USB.
+   - Selecione a placa e a porta correta na IDE.
+   - Clique em **Carregar**.
+5. Abra o **Monitor Serial**. Aproximando uma tag do leitor, o UID será exibido no terminal.
+6. Anote os UIDs das suas tags para configurar os pares no seu projeto.
+
+
 ## Objetivo Educacional
 
 O projeto **SINALIZE** busca incentivar o aprendizado da **Libras** (Língua Brasileira de Sinais) de forma **lúdica**, integrando **tecnologia** com **educação inclusiva**.
