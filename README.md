@@ -70,7 +70,7 @@ ParCartas paresValidos[] = {
   { {0xXX, 0xXX, 0xXX, 0xXX}, {0xYY, 0xYY, 0xYY, 0xYY} },
   // Adicione mais pares aqui
 };
-
+´´´cpp
 ## Descobrindo os UIDs das suas tags RFID
 
 ## Objetivo Educacional
