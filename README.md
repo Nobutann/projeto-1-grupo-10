@@ -1,4 +1,4 @@
-# SINALIZE – Jogo Educativo com RFID e Libras
+# SINALIZE – Jogo Educativo para Deficientes Auditivos
 
 O **SINALIZE** é um jogo de tabuleiro interativo desenvolvido para auxiliar no aprendizado de Libras (Língua Brasileira de Sinais). O jogador aproxima duas cartas RFID de um leitor: a primeira carta contém uma palavra em português, e a segunda deve ser sua tradução em Libras. O sistema confere se o par é válido e fornece um feedback visual e tátil.
 
