@@ -6,9 +6,9 @@ O **SINALIZE** é um jogo de tabuleiro interativo desenvolvido para auxiliar no 
 
 ##  Componentes Utilizados
 
-- Arduino Uno (ou compatível)
+- Arduino Uno
 - Leitor RFID RC522
-- Cartas RFID (com etiquetas UID)
+- Cartas RFID
 - LED verde e LED vermelho
 - Motor vibratório
 - Jumpers e resistores
@@ -94,7 +94,3 @@ Ele pode ser utilizado em:
 - Aulas de Libras
 - Ambientes interativos voltados à inclusão
 - Brincadeiras com crianças deficientes auditivos
-
-
-
-
