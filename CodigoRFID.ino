@@ -1,50 +1,48 @@
-#include <SPI.h>            
-#include <MFRC522.h>         
+#include <SPI.h>
+#include <MFRC522.h>
 
-#define SS_PIN 10            
-#define RST_PIN 9            
+#define SS_PIN 10
+#define RST_PIN 9
 
-MFRC522 mfrc522(SS_PIN, RST_PIN);  
+MFRC522 mfrc522(SS_PIN, RST_PIN);
 
-
-#define LED_VERDE 6          
-#define LED_VERMELHO 7       
-#define MOTOR_PIN 5          
-
+#define LED_VERDE 6
+#define LED_VERMELHO 7
+#define MOTOR_PIN 5
 
 struct ParCartas {
-  byte carta1[4];  
-  byte carta2[4];  
-
+  byte carta1[4];
+  byte carta2[4];
 };
+
 ParCartas paresValidos[] = {
-  { {0xC3, 0x45, 0x61, 0x1A}, {0xC3, 0x36, 0x74, 0x1A} }, //1
-  { {0x93, 0x2C, 0x77, 0x1A}, {0xA3, 0x96, 0x63, 0x1A} }, //2
-  { {0x83, 0x2B, 0xB5, 0x29}, {0xE3, 0x66, 0x69, 0x29} }, //3
-  { {0x53, 0xB7, 0x8, 0x2A}, {0xF3, 0x8D, 0xED, 0x27} }, //4
-  { {0x43, 0xF0, 0x9, 0x2A}, {0x23, 0x2, 0xC7, 0x27} }, //5
-  { {0x03, 0x67, 0x6F, 0x1A}, {0x94, 0x39, 0xA3, 0x1E} }, //6
-  { {0x03, 0x71, 0x72, 0x2A}, {0x23, 0x86, 0x75, 0x1A} }, //7
-  { {0x93, 0xF3, 0xF, 0x2A}, {0xBA, 0xB, 0xDB, 0x16} }, //8
-  { {0xA3, 0xCC, 0x86, 0x29}, {0xF3, 0x67, 0x43, 0x29} }, //9
-  { {0xA3, 0xE9, 0x36, 0x28}, {0xF3, 0xC8, 0x86, 0x29} }, //10
-  { {0x53, 0x42, 0x66, 0x1A}, {0xE3, 0x3A, 0x74, 0x1A} }, //11
-  { {0x83, 0xCB, 0x36, 0x28}, {0xC3, 0x5A, 0xAE, 0x27} } //12
+  { {0xC3, 0x45, 0x61, 0x1A}, {0xC3, 0x36, 0x74, 0x1A} },
+  { {0x93, 0x2C, 0x77, 0x1A}, {0xA3, 0x96, 0x63, 0x1A} },
+  { {0x83, 0x2B, 0xB5, 0x29}, {0xE3, 0x66, 0x69, 0x29} },
+  { {0x53, 0xB7, 0x8, 0x2A}, {0xF3, 0x8D, 0xED, 0x27} },
+  { {0x43, 0xF0, 0x9, 0x2A}, {0x23, 0x2, 0xC7, 0x27} },
+  { {0x3, 0x67, 0x6F, 0x1A}, {0x94, 0x39, 0xAB, 0x1E} },
+  { {0x03, 0x71, 0x72, 0x2A}, {0x23, 0x86, 0x75, 0x1A} },
+  { {0x93, 0xF3, 0xF, 0x2A}, {0xBA, 0xB, 0xDB, 0x16} },
+  { {0xA3, 0xCC, 0x86, 0x29}, {0xF3, 0x67, 0x43, 0x29} },
+  { {0xA3, 0xE9, 0x36, 0x28}, {0xF3, 0xC8, 0x86, 0x29} },
+  { {0x53, 0x42, 0x66, 0x1A}, {0xE3, 0x3A, 0x74, 0x1A} },
+  { {0x83, 0xCB, 0x36, 0x28}, {0xC3, 0x5A, 0xAE, 0x27} }
 };
 
-const int numPares = sizeof(paresValidos) / sizeof(paresValidos[0]); 
+const int numPares = sizeof(paresValidos) / sizeof(paresValidos[0]);
 
-byte primeiraLida[4];       
-bool primeiraCartaLida = false; 
+byte primeiraLida[4];
+bool primeiraCartaLida = false;
 
 void setup() {
-  Serial.begin(9600);        
-  SPI.begin();               
-  mfrc522.PCD_Init();        
+  Serial.begin(9600);
+  SPI.begin();
+  mfrc522.PCD_Init();
 
-  pinMode(LED_VERDE, OUTPUT);    
-  pinMode(LED_VERMELHO, OUTPUT); 
-  pinMode(MOTOR_PIN, OUTPUT);    
+  pinMode(LED_VERDE, OUTPUT);
+  pinMode(LED_VERMELHO, OUTPUT);
+  pinMode(MOTOR_PIN, OUTPUT);
   Serial.println("Sistema iniciado. Aproxime as cartas RFID.");
 }
 
@@ -77,10 +75,10 @@ void loop() {
 
     if (corresponde) {
       Serial.println("Par correto!");
-      piscarComVibracao(LED_VERDE);
+      piscarComVibracaoCorreta(LED_VERDE);
     } else {
       Serial.println("Par incorreto!");
-      piscarComVibracao(LED_VERMELHO);
+      piscarComVibracaoIncorreta(LED_VERMELHO);
     }
 
     primeiraCartaLida = false;
@@ -90,7 +88,6 @@ void loop() {
   delay(500);
 }
 
-
 bool compareUID(byte *a, byte *b) {
   for (byte i = 0; i < 4; i++) {
     if (a[i] != b[i]) return false;
@@ -98,22 +95,34 @@ bool compareUID(byte *a, byte *b) {
   return true;
 }
 
-
-void vibrar() {
+void vibrarCurto() {
   digitalWrite(MOTOR_PIN, HIGH);
-  delay(300);
+  delay(100);
   digitalWrite(MOTOR_PIN, LOW);
 }
 
+void vibrarLongo() {
+  digitalWrite(MOTOR_PIN, HIGH);
+  delay(400);
+  digitalWrite(MOTOR_PIN, LOW);
+}
 
-void piscarComVibracao(int pinoLED) {
-  int count = 0;
-  while (count < 5) {
+void piscarComVibracaoCorreta(int pinoLED) {
+  for (int i = 0; i < 3; i++) {
     digitalWrite(pinoLED, HIGH);
-    vibrar();               
-    delay(200);            
+    vibrarLongo();
+    delay(300);
     digitalWrite(pinoLED, LOW);
-    delay(200);            
-    count++;
+    delay(300);
+  }
+}
+
+void piscarComVibracaoIncorreta(int pinoLED) {
+  for (int i = 0; i < 5; i++) {
+    digitalWrite(pinoLED, HIGH);
+    vibrarCurto();
+    delay(150);
+    digitalWrite(pinoLED, LOW);
+    delay(150);
   }
 }
