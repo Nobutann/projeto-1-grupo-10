@@ -9,6 +9,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 #define LED_VERDE 6
 #define LED_VERMELHO 7
 #define MOTOR_PIN 5
+#define MOTOR_PIN2 3
 
 struct ParCartas {
   byte carta1[4];
@@ -25,9 +26,9 @@ ParCartas paresValidos[] = {
   { {0x03, 0x71, 0x72, 0x2A}, {0x23, 0x86, 0x75, 0x1A} },
   { {0x93, 0xF3, 0xF, 0x2A}, {0xBA, 0xB, 0xD8, 0x16} },
   { {0xA3, 0xCC, 0x86, 0x29}, {0xF3, 0x67, 0x43, 0x29} },
-  { {0xA3, 0xE9, 0x36, 0x28}, {0xF3, 0xC8, 0x86, 0x29} },
+  { {0xA3, 0xE9, 0x3C, 0x28}, {0xF3, 0xC8, 0x86, 0x29} },
   { {0x53, 0x42, 0x66, 0x1A}, {0xE3, 0x3A, 0x74, 0x1A} },
-  { {0x83, 0xCB, 0x36, 0x28}, {0xC3, 0x5A, 0xAE, 0x27} }
+  { {0x83, 0xCB, 0x3C, 0x28}, {0xE3, 0x5A, 0xAE, 0x27} }
 };
 
 const int numPares = sizeof(paresValidos) / sizeof(paresValidos[0]);
@@ -43,6 +44,7 @@ void setup() {
   pinMode(LED_VERDE, OUTPUT);
   pinMode(LED_VERMELHO, OUTPUT);
   pinMode(MOTOR_PIN, OUTPUT);
+  pinMode(MOTOR_PIN2, OUTPUT);
   Serial.println("Sistema iniciado. Aproxime as cartas RFID.");
 }
 
@@ -97,14 +99,18 @@ bool compareUID(byte *a, byte *b) {
 
 void vibrarCurto() {
   digitalWrite(MOTOR_PIN, HIGH);
+  digitalWrite(MOTOR_PIN2, HIGH);
   delay(100);
   digitalWrite(MOTOR_PIN, LOW);
+  digitalWrite(MOTOR_PIN2, LOW);
 }
 
 void vibrarLongo() {
   digitalWrite(MOTOR_PIN, HIGH);
+  digitalWrite(MOTOR_PIN2, HIGH);
   delay(400);
   digitalWrite(MOTOR_PIN, LOW);
+  digitalWrite(MOTOR_PIN2, LOW);
 }
 
 void piscarComVibracaoCorreta(int pinoLED) {
