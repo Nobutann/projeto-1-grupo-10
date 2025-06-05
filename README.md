@@ -10,7 +10,7 @@ O **SINALIZE** é um jogo de tabuleiro interativo desenvolvido para auxiliar no 
 - Leitor RFID RC522
 - Cartas RFID
 - LED verde e LED vermelho
-- Motor vibratório
+- 2 Motores vibratórios
 - Jumpers e resistores
 - Protoboard
 
@@ -22,10 +22,10 @@ O **SINALIZE** é um jogo de tabuleiro interativo desenvolvido para auxiliar no 
 2. Em seguida, o usuário deve aproximar a **segunda carta**, que representa o sinal em Libras correspondente.
 3. Se o par estiver correto:
    - O LED **verde** pisca.
-   - O motor vibratório é ativado brevemente.
+   - Os motores vibratórios é ativado brevemente.
 4. Se o par estiver incorreto:
    - O LED **vermelho** pisca.
-   - O motor também vibra como alerta.
+   - Os motores também vibram como alerta.
 
 ---
 
@@ -60,6 +60,7 @@ Outros pinos:
 - LED Verde → Pino 6
 - LED Vermelho → Pino 7
 - Motor Vibratório → Pino 5
+- Motor Vbratório 2 → Pino 3
 
 ### 3. Configure os Pares de Cartas
 
